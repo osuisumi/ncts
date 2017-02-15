@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="author" content="smile@kang.cool">
+<meta name="description" content="hello">
+<meta name="keywords" content="a,b,c">
+<meta http-equiv="Window-target" content="_top">
+<title>学习计划</title>
+
+<link rel="Shortcut Icon" href="../../images/favicon.ico">
+<link rel="stylesheet" href="../../css/library/reset.css">
+<link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
+<link rel="stylesheet" type="text/css" href="css/fancybox.css">
+<link rel="stylesheet" href="../../js/library/fullcalendar-2.6.1/fullxiugai.css">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/study.css">
+<style type="text/css">
+#calendar{width:960px; margin:20px auto 10px auto}
+.fancy{width:450px; height:auto}
+.fancy h3{height:30px; line-height:30px; border-bottom:1px solid #d3d3d3; font-size:14px}
+.fancy form{padding:10px}
+.fancy p{height:28px; line-height:28px; padding:4px; color:#999}
+.input{height:20px; line-height:20px; padding:2px; border:1px solid #d3d3d3; width:100px}
+.btn{-webkit-border-radius: 3px;-moz-border-radius:3px;padding:5px 12px; cursor:pointer}
+.btn_ok{background: #360;border: 1px solid #390;color:#fff}
+.btn_cancel{background:#f0f0f0;border: 1px solid #d3d3d3; color:#666 }
+.btn_del{background:#f90;border: 1px solid #f80; color:#fff; }
+.sub_btn{height:32px; line-height:32px; padding-top:6px; border-top:1px solid #f0f0f0; text-align:right; position:relative}
+.sub_btn .del{position:absolute; left:2px;}
+</style>
+<script src='http://code.jquery.com/jquery-1.9.1.js'></script>
+<script type="text/javascript" src="../../js/library/jquery.js"></script>
+<script src='http://code.jquery.com/ui/1.10.3/jquery-ui.js'></script>
+<script src='js/fullcalendar.min.js'></script>
+<script src='js/jquery.fancybox-1.3.1.pack.js'></script>
+<script src='js/jquery-ui-1.10.3.custom.min.js'></script>
+<script src='js/addplay.js'></script>
+
+</head>
+<body id="clPageBody">
+    <!--begin wrap -->
+    <div id="g-wrap">
+        <!--begin header -->
+        <div id="g-hd">
+            <div class="g-auto">
+                <h1 id="m-logo">
+                    <a href="../../index.html">
+                        <img src="../../images/logo1.png" alt="乐高教育远程教育培训平台">
+                        <span>乐高教育远程教育培训平台课程制作中心</span>
+                    </a>
+                </h1>
+                <ul class="m-tp-opt">
+                    <li class="user">
+                        <a href="javascript:void(0);" class="show">
+                            <img src="../../images/headImg1.jpg" alt=""><span>张玉明</span><i class="u-trg-ico"></i>
+                        </a>
+                        <div class="lst">
+                            <i class="trg"><i></i></i>
+                            <a href="javascript:void(0);"><i class="u-user2-ico"></i>用户资料</a>
+                            <a href="javascript:void(0);"><i class="u-exit2-ico"></i>退出登录</a>
+                        </div>
+                    </li>
+                    <li class="g-notice">
+                        <a href="notice-list.html" class="u-bell"><i class="u-bell-ico"></i>通知<i class="dot"></i></a>
+                        <div class="m-mouse-news">
+                            <i class="arrow-icon"></i>
+                            <ul class="m-mouse-txt">
+                                <li>
+                                    <div class="notice"> 
+                                        <span class="notice-l">系统通知</span>
+                                        <span class="notice-r">2016/1/12</span>
+                                    </div>
+                                    <p>您已经成功通过教师工作坊的成员申请审核，请及时查阅！</p>
+
+                                </li>
+                                <li>
+                                    <div class="notice"> 
+                                        <span class="notice-l">系统通知</span>
+                                        <span class="notice-r">2016/1/12</span>
+                                    </div>
+                                    <p>您已经成功通过教师工作坊的成员申请审核，请及时查阅！</p>
+
+                                </li>
+                                <li class="m-note m-Mo-replay">
+                                    <div class="note"> 
+                                        <span class="note-l">小纸条</span>
+                                        <span class="note-c">2016/1/12</span>
+                                        <span class="note-r">来自：<a href="javascript:;">张三</a> </span>
+                                    </div>
+                                    <p>您已经成功通过教师工作坊的成员申请审核，请及时查阅！</p>
+                                    <div class="replay"><span><i class="u-note-replay"></i>回复</span></div>
+
+                                </li>                                                
+                            </ul>
+                            <div class="m-h-more">
+                                <a href="notice-list.html" class="more"><i class="u-h-see"></i>查看更多</a>
+                                
+                            </div>
+                        </div>                        
+                    </li>
+                </ul>
+            </div>
+            <div class="g-hd-border"></div>
+        </div>
+        <!--end header -->
+        <!--begin content body -->
+        <div id="g-bd">
+            <!-- begin course learning page -->
+
+            <!--end course learning page -->
+        </div>
+        <!--end content body -->
+        <!--begin footer -->
+            <div id="courseLearning" class="g-innerAuto">
+                <!--begin course learning muenu -->
+                <div class="g-cl-menu">
+                    <div class="m-cl-menu">
+                        <a href="../index.html">课程学习</a>
+                        <a href="../resource.html">课程资源</a>
+                        <a href="../discuss.html">课程讨论</a>
+                        <a href="javascript:;">学习进度</a>
+                        <a href="cal_opt.html" class="z-crt">学习计划</a>
+                    </div><!--end course learning menu module-->
+                </div>
+                <!--end course learning muenu -->
+                <!--begin course learning content -->
+                <div class="g-cl-content">
+                    <!--begin course learning study plan 学习计划-->
+                    <div class="g-cl-plan">
+                        <div id="calendar"></div>
+                    </div>
+                    <!--end course learning study plan 学习计划-->
+                </div>
+                <!--end course learning content -->
+            </div>
+
+        <div id="g-ft">
+            <div class="g-auto g-ft-inner">
+                <ul class="m-ft-infoL">
+                    <li><i class="u-iHome-ico"></i><strong>主办单位</strong>( 乐高教育 )</li>
+                    <li><i class="u-iAddr-ico"></i><strong>地址</strong>( 中国广东省乐高教育市端州区乐高教育大道 )</li>
+                    <li><i class="u-iTelephone-ico"></i><strong>电话</strong>( 0758-2716233 )</li>
+                </ul>
+                <p class="m-ft-infoR fr">乐高教育版权所有&nbsp;&nbsp;Copyright&nbsp;&nbsp;©&nbsp;2004-2013</br>粤ICP备05008891号</p>
+            </div>
+        </div>
+        <!--end footer -->
+    </div>
+
+
+    <div class="add-bg">
+        <div class="g-add">
+            <div class="m-add-tl">
+                <h1 class="u-add-tl">添加计划</h1>                
+                <button class="u-add-f crt">完成</button>
+                <button class="u-add-d">取消</button>
+            </div>
+            <div class="m-add-l">
+                
+                <dl>
+                    <dt>
+                        <p>课前准备</p>
+                        <div class="u-add-con"></div>
+                        <div class="u-add-conr u-add-conr01"></div>
+                    </dt>
+                    <dd>
+                        <p>教育系统突发公共事件简介</p>
+                        <div class="u-add-con u-add-con2 "></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+                </dl>
+
+
+                <dl>
+                    <dt>
+                        <p>教育摸底测试</p>
+                        <div class="u-add-con"></div>
+                        <div class="u-add-conr u-add-conr02"></div>
+                    </dt>
+                    <dd>
+                        <p>教师教学摸底测试一</p>
+                        <div class="u-add-con u-add-con2"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+                    <dd >
+                        <p class="btn-left0">教育调查二</p>
+                        <div class="u-add-con u-add-con2 td-add-f"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+                    <dd>
+                        <p>教育综合三</p>
+                        <div class="u-add-con u-add-con2"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+
+
+
+
+                </dl>
+
+                <dl>
+                    <dt>
+                        <p>教育从了解学生开始</p>
+                        <div class="u-add-con"></div>
+                        <div class="u-add-conr u-add-conr03"></div>
+                    </dt>
+                    <dd >
+                        <p class="btn-left0">教育系统突简介</p>
+                        <div class="u-add-con u-add-con2 td-add-f"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+                    <dd>
+                        <p>《幸福是什么》案例分析</p>
+                        <div class="u-add-con u-add-con2"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+                    <dd>
+                        <p>教育系统突发公共简介</p>
+                        <div class="u-add-con u-add-con2"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+
+
+
+
+                </dl>
+
+                <dl>
+                    <dt>
+                        <p>教学的学习与分享</p>
+                        <div class="u-add-con"></div>
+                        <div class="u-add-conr u-add-conr04"></div>
+                    </dt>
+                    <dd>
+                        <p>教学的学习与分享一</p>
+                        <div class="u-add-con u-add-con2"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+                    <dd>
+                        <p>教学的学习与分享二</p>
+                        <div class="u-add-con u-add-con2"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+                    <dd>
+                        <p>教学的学习与分享三</p>
+                        <div class="u-add-con u-add-con2"></div>
+                        <button class="u-add-btn">+&nbsp;&nbsp;添加</button>
+                    </dd>
+                    
+                </dl>
+
+
+
+            </div>
+
+            <div class="m-add-r">
+                <div class="u-add-r-tl">
+                    <p>当天已添加计划</p>
+                    <div class="u-add-r-numbg"><span></span></div>
+
+                </div>
+                <div class="u-add-r-ct">
+<!--                 <p class="u-add-r-plan">
+                        <i>55555</i>
+                        <span class="u-add-r-plan-mov">x&nbsp;移除</span>
+
+                </p>  -->
+
+
+                </div>
+
+            </div>
+            
+
+
+        </div>
+
+    </div>
+<script type="text/javascript" src="../../js/library/layer/layer.js"></script>
+<script type="text/javascript">
+ $(function(){
+
+    //添加消息回复
+    $("#g-hd .m-note .replay").on("click",function(){
+        layer.open({
+            type: 2,
+            title: '回复小纸条',
+            fix: false,
+            bgcolor: '#fff',
+            area: ['510px', '380px'],
+            //offset: '100px',
+            // offset: '100px',
+            content: '../replay-notice.html'
+        });
+    }); 
+
+});
+
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
+
+   

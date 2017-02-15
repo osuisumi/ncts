@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/util 
+http://www.springframework.org/schema/util/spring-util.xsd
+">
+	<context:annotation-config />  
+	<!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描-->  
+	<context:component-scan base-package="com.haoyu.**.utils" />
+	<context:component-scan base-package="com.haoyu.**.service.impl" />
+ 	<context:component-scan base-package="com.haoyu.**.dao.impl.mybatis" />
+	<context:component-scan base-package="com.haoyu.**.listener" />
+	<context:component-scan base-package="com.haoyu.**.dao" /> 	
+ 	
+ 	<!-- spring的属性加载器，加载properties文件中的属性 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/classes/common.properties</value>
+				<value>/WEB-INF/classes/config.properties</value>
+				<value>/WEB-INF/classes/custom.properties</value>
+				<!-- <value>common.properties</value>
+				<value>config.properties</value>
+				<value>custom.properties</value> -->
+			</list>
+		</property>
+		<property name="fileEncoding" value="utf-8" />
+	</bean>
+ 	
+	<!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+	    <property name="driverClassName" value="${dataSource.driverClassName}" /> 
+        <property name="url" value="${dataSource.url}" /> 
+        <property name="username" value="${dataSource.username}"/> 
+        <property name="password" value="${dataSource.password}"/>  
+	    <property name="initialSize" value="1" />
+	    <property name="maxActive" value="20" />
+	</bean>
+	<!-- myBatis文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath*:com/haoyu/**/dao/impl/mybatis/*Mapper.xml</value> 
+			</array>
+		</property>
+		<property name="configLocation" value="classpath:ibatis-config.xml" />
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* com.haoyu..*Service*.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*query*" read-only="true" />
+			<tx:method name="*get*" read-only="true" />
+			<tx:method name="*search*" read-only="true" />
+			<tx:method name="*list*" read-only="true" />
+			<tx:method name="*find*" read-only="true" />
+			<tx:method name="*init*" read-only="false" />
+			<tx:method name="*create*" read-only="false" propagation="NESTED" />
+			<tx:method name="*update*" read-only="false" />
+			<tx:method name="*save*" read-only="false" />
+			<tx:method name="*add*" read-only="false" />
+			<tx:method name="*edit*" read-only="false" />
+			<tx:method name="*import*" read-only="false" />
+			<tx:method name="*remove*" read-only="false" />
+			<tx:method name="*delete*" read-only="false" />
+			<tx:method name="*insert*" read-only="false" />
+			<tx:method name="*submit*" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+	<bean id="myBatisDao" class="com.haoyu.sip.core.jdbc.MybatisDao">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 解决内部调用不通过代理导致无法启用注解缓存问题 -->	
+	<aop:aspectj-autoproxy expose-proxy="true"/>
+	<bean id="propertiesLoader" class="com.haoyu.sip.core.utils.PropertiesLoader">
+		<constructor-arg index="0" value="common.properties, custom.properties"></constructor-arg>
+	</bean>
+	<!-- <bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>/WEB-INF/classes/common.properties</value>
+		</property>
+		<property name="fileEncoding" value="utf-8" />
+	</bean>  -->
+	<util:properties id="commonConfig" location="classpath*:common.properties" /> 
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<import resource="classpath:spring-redis.xml"/>
+	<import resource="classpath:spring-privilege.xml"/> 
+	<import resource="classpath:spring-task.xml"/> 
+	<import resource="classpath:webservice.xml"/> 
+	
+	<!-- <bean id="accountNctsAbstractService" class="${accountNctsAbstractService}" /> -->
+	
+</beans>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>mylayer demo</title>
+<link rel="stylesheet" href="../skin/default/mylayer.css">
+<style>
+    
+body {
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+    font-size: 12px;
+}
+
+  </style>
+</style>
+</head>
+<body>
+    <h1>mylayer.refresh刷新</h1>
+    <p>调用方法：mylayerFn.refresh</p>
+
+    <h2>参数：</h2>
+    <p><strong>id:</strong>必填，重新刷新弹层.  例如：(id: 999)</p>
+    <p><strong>title:</strong>新弹层的title.  例如：(title: "刷新后的title")</p>
+    <p><strong>content:</strong>刷新后的内容，可填地址，或者新的iframe为弹层内容   例如：(content: '../frame1.html')</p>
+    <p><strong>refreshFn:</strong> 刷新成功后执行函数。默认不执行</p>
+
+
+
+    <button id="refresh">刷新</button>
+
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../mylayer.js"></script>
+<script type="text/javascript">
+$(function(){
+
+
+    
+
+    $('#refresh').on('click',function(){
+        mylayerFn.open({
+            id: '999',
+            type: 2,
+            title: '旧的弹层',
+            content: 'iframe.html',
+            area: [500,'300']
+        });
+        mylayerFn.refresh({
+            id: 999,
+            title: '刷新后弹层的title',
+            content: 'iframe1.html',
+            refreshFn: function(){
+                console.log('刷新了');
+            } 
+        });
+    })
+
+})
+</script>
+</body>
+</html>

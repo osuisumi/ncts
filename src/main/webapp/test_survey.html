@@ -1,0 +1,28 @@
+<script type="text/javascript" src="/common/js/jquery.js"></script>
+<button onclick="submitSurvey()">提交问卷</button>
+
+
+<script>
+	function submitSurvey(){
+		$.post('${ctx}/a_325604d080e044158c08fcaa38215dfa/study/unique_uid_8e29abb5-053f-11e6-a6db-00ff34dbf6f0/m/survey_user',{
+			'survey.id':'4dc8e0be84b44c4b99ff8e3633ad822d',
+			'relation.id':'c_1fe42ae7ea124ad5ad816eb55ca3cb72',
+			'creator.id':'8e29abb5-053f-11e6-a6db-00ff34dbf6f0',
+			'surveySubmissions[0].question.id':'c4ec7b0be26b423ba5bf5d43e362740b',//问题id
+			'surveySubmissions[0].question.type':'singleChoice',
+			'surveySubmissions[0].response':'f0eff6f7181b467697505ce8b99d2638',//选项的id
+			'surveySubmissions[1].question.id':'9345c873a1144962a203223b09b24a37',//问题id
+			'surveySubmissions[1].question.type':'multipleChoice',
+			'surveySubmissions[1].response':'3a670a7f60954dac852fab3eccb65121',//选项的id,多个用逗号分隔
+			'surveySubmissions[2].question.id':'cc32e505d12740048739d8bf308ddde5',//问题id
+			'surveySubmissions[2].question.type':'trueOrFalse ',
+			'surveySubmissions[2].response':'f2785fc8ee174ca7907e9d2e1ca78b58',//回答的内容
+			'surveySubmissions[3].question.id':'8c3c8f9ada5c4cbf84e73cd4ca4f8a6c',//问题id
+			'surveySubmissions[3].question.type':'textEntry ',
+			'surveySubmissions[3].response':'哈哈哈哈哈哈哈',//回答的内容
+		},function(response){
+			console.log(response);
+		});
+	}
+	
+</script>

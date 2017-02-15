@@ -1,0 +1,129 @@
+@charset "utf-8";
+
+/*
+
+=================
+sass base style
+=================
+
+*/
+@import "_theme";
+
+
+//雅黑
+%fm-yh {
+	font-family : "\5FAE\8F6F\96C5\9ED1";
+}
+//宋体
+%fm-st {
+	font-family: "\5B8B\4F53";
+}
+//清除浮动
+.f-cb, %clearfix {
+	*zoom: 1;
+	&:before, &:after {
+		content: "";
+		display: table;
+		font: 0/0 a;
+	}
+	&:after {
+		clear: both;
+	}
+}
+//float left
+.fl {
+    display: inline-block;
+    *display: inline;
+    float: left;
+}
+//float right
+.fr {
+    display: inline-block;
+    *display: inline;
+    float: right;
+}
+//边框
+%border {
+	border: 1px solid #e5e5e5;
+}
+//左浮动
+@mixin fl {
+	display: inline-block;
+	*display: inline;
+	float: left;
+}
+//右浮动
+@mixin fr {
+	display: inline-block;
+	*display: inline;
+	float: right;
+}
+//圆角
+@mixin radius($value: 50%) {
+    @if($onOff){
+        -webkit-border-radius: $value;
+           -moz-border-radius: $value;
+                border-radius: $value;
+    }@else {
+        -webkit-border-radius: 0px;
+           -moz-border-radius: 0px;
+                border-radius: 0px;
+    }
+	
+}
+//文字省略
+@mixin toe($maxWidth: 100%) {
+	display: inline-block;
+	*display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: $maxWidth;
+}
+//透明度
+@mixin opacity($value) {
+	opacity: $value;
+	filter: alpha(opacity = $value * 100);
+}
+//过渡
+@mixin transition($property:all, $time: 0.2s, $way:ease-in, $delay:initial) {
+	-webkit-transition: $property $time $way $delay;	
+	   -moz-transition: $property $time $way $delay;	
+	    -ms-transition: $property $time $way $delay;	
+	     -o-transition: $property $time $way $delay;	
+	        transition: $property $time $way $delay;	
+}
+//盒子阴影
+@mixin box-shadow ($inset, $x, $y, $blur, $area, $color){
+	@if $inset == true {
+		-webkit-box-shadow: inset $x $y $blur $area $color;
+		   -moz-box-shadow: inset $x $y $blur $area $color;
+		    -ms-box-shadow: inset $x $y $blur $area $color;
+		     -o-box-shadow: inset $x $y $blur $area $color;
+		        box-shadow: inset $x $y $blur $area $color;
+	}
+	@else {
+		-webkit-box-shadow: $x $y $blur $area $color;
+		   -moz-box-shadow: $x $y $blur $area $color;
+		    -ms-box-shadow: $x $y $blur $area $color;
+		     -o-box-shadow: $x $y $blur $area $color;
+		        box-shadow: $x $y $blur $area $color;
+	}
+}
+//渐变
+@mixin linear-gradient($from, $to, $sad) {
+    // Fallback for sad browsers 
+    background-color: $sad;
+    // Mozilla Firefox
+    background-image:-moz-linear-gradient($from, $to);
+    // Opera
+    background-image:-o-linear-gradient($from, $to);
+    // WebKit (Safari 4+, Chrome 1+) 
+    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, $from), color-stop(1, $to));
+    // WebKit (Chrome 11+)
+    background-image: -webkit-linear-gradient($from, $to);
+    // IE10
+    background-image: -ms-linear-gradient($from, $to);
+    // W3C
+    background-image: linear-gradient($from, $to);
+}

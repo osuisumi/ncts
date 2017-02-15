@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>mylayer demo</title>
+<link rel="stylesheet" href="../skin/default/mylayer.css">
+<style>
+    
+body {
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+    font-size: 12px;
+}
+
+  </style>
+</style>
+</head>
+<body>
+    
+    
+    <h1>mylayer.open</h1>
+    <p>调用方法：mylayerFn.open;</p>
+
+    <h2>参数：</h2>
+    <p><strong>id:</strong>记录layer弹框独一无二的标志，可填数字，例如：(id: 999)</p>
+    <p><strong>type:</strong>值为0~2。   “0”代表默认值，信息提示层； “1”页面层； “2”iframe层. 例如：(type: 1)</p>
+    <p><strong>title:</strong>弹框的标题，默认为标题“提示”.  例如：(title: "新的弹层")</p>
+    <p><strong>content:</strong>弹框的内容.  例如：(content: "这是一个信息确认层")</p>
+    <p><strong>area:</strong>弹框的大小，第一个为弹层的宽；第二个为弹层的高度；不设置则为默认值'auto',自动获取宽高。 例如：(area: ['800','600'])</p>
+    <p><strong>offset:</strong>弹框弹出的位置，第一个为弹层的top值，第二个为弹层的left值，不设置则为默认值'auto',自动居中。 例如：(offset: [400,200])</p>
+    <p><strong>icon:</strong>type:0时设置的图标，0~6，不设置则默认为不显示图标。   例如：(icon: 1)</p>
+    <p><strong>closeIcon:</strong>是否隐藏右上角的关闭图标，有true和false两个值，设置为false是隐藏关闭图标，默认为true.</p>
+    <p><strong>shade:</strong>弹框的遮罩层，默认为黑色背景0.6的透明度。 例如：(shade: [0.7,'#ccc'])</p>
+    <p><strong>shadeClose:</strong>点击遮罩层是否关闭弹层，设置为true，则点击遮罩层可关闭弹层，false反之。，默认为false。 例如：(shadeClose: true)</p>
+    <!-- <p><strong>time:</strong>设置时间让弹层自动关闭，默认手动关闭，值为毫秒。  例如：(time: 5000)</p> -->
+    <p><strong>fix:</strong>弹层是否固定定位。默认为绝对定位，设置true时为固定定位。 例如：(fix: true)</p>
+    <!-- <p><strong>scrollbar:</strong>是否在弹出后，显示滚动条。默认为true，设置为false时隐藏滚动条。 例如：(scrollbar: false)</p> -->
+    <p><strong>zIndex:</strong>设置弹层的层级，不设置自动计算层级。  例如：(zIndex: 999999)</p>
+    <p><strong>success:</strong>弹出成功后，执行函数。  例如：( success: function(){alert('成功了');} )</p>
+    <p><strong>yes:</strong>弹出框里面的确定按钮。close: true,点击是否关闭，true为默认值，false为点击不执行关闭弹层。btnName: ,按钮class名，默认为'.mylayer-confirm'；yesFn : 点击后执行函数。 </p>
+    <p><strong>cancel:</strong>关闭弹出框后执行函数，默认为空</p>
+    <p><strong>end:</strong>弹框关闭后，执行函数，默认为不执行</p>
+
+    <button id="button">add</button>
+    
+
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../mylayer.js"></script>
+<script type="text/javascript">
+$(function(){
+
+    mylayerFn.open({
+        id: 111,
+        type: 0,
+        title: '新的弹层',
+        content: '12345,hahahaha',
+        area: [300,'auto'],
+        offset: ['auto','auto'],
+        shade: [0.6,"#000"],
+        icon: 1,
+        //closeIcon: false,
+        //shadeClose: true,
+        fix: false,
+        zIndex: 9999,
+        yes: {
+            close: true,
+            btnName: '.mylayer-confirm',
+            yesFn : function(){
+                mylayerFn.alert({content:'你点击了确定按钮',icon: 1});
+            }
+        },
+        cancel: function(){
+            mylayerFn.alert({content:'你关闭了弹层'});
+        }
+    });
+
+
+    $("#button").on('click',function(){
+        mylayerFn.open({
+            id: 12345,
+            type: 1,
+            title: '这是一个页面层',
+            content: '12345，上山打老虎',
+            area: [800,600],
+            offset: [100,200],
+            zIndex: 19999,
+        });
+    });
+    
+    
+
+});
+
+
+   
+
+
+    
+</script>
+</body>
+</html>

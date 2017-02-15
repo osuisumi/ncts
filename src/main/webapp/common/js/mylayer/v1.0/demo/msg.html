@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>mylayer demo</title>
+<link rel="stylesheet" href="../skin/default/mylayer.css">
+<style>
+    
+body {
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+    font-size: 12px;
+}
+
+  </style>
+</style>
+</head>
+<body>
+    
+    
+    <h1>mylayer.msg</h1>
+    <p>调用方法：mylayerFn.msg</p>
+
+    <h2>参数：</h2>
+    <p><strong>message:</strong>必填，提示信息的内容 例如：mylayerFn.msg('这是一个默认的信息层',{});</p>
+    <p><strong>icon:</strong>设置的图标，0~6，不设置则默认为不显示图标。   例如：(icon: 3)</p>
+    <p><strong>time:</strong> 自动关闭的时间，值为毫秒。 默认为1500</p>
+    <p><strong>fn:</strong>关闭时执行函数，默认为空</p>
+
+    
+
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../mylayer.js"></script>
+<script type="text/javascript">
+$(function(){
+
+    mylayerFn.msg('这是一个默认的信息层',{icon: 0, time: 3000},function(){
+        mylayerFn.msg('又弹出了一个',{});
+    });
+
+});
+
+
+   
+
+
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+﻿<jscompress public="http://www.jscompress.cn/" command="import-combineset">
+<combinefile path="common.base.css">
+    <css_fixedrelativeurl value="1" />
+    <auto value="0" />
+    <sourcefile path="..\js\mylayer\v1.0\skin\default\mylayer.css" />
+    <sourcefile path="..\js\webuploader\webuploader.css" />
+    <sourcefile path="..\js\validation\css\cmxform.css" />
+    <sourcefile path="..\js\flowplayer\skin\functional.css" />
+    <sourcefile path="..\js\flowplayer\quality-selector\flowplayer.quality-selector.css" />
+    <sourcefile path="..\..\error\css\error.css" />
+</combinefile>
+</jscompress>

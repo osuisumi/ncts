@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>mylayer demo</title>
+<link rel="stylesheet" href="../skin/default/mylayer.css">
+<style>
+    
+body {
+    font-family: "\5FAE\8F6F\96C5\9ED1";
+    font-size: 12px;
+}
+
+  </style>
+</style>
+</head>
+<body>
+    
+    
+    <h1>mylayer.confirm</h1>
+    <p>调用方法：mylayerFn.btns</p>
+
+    <h2>参数：</h2>
+    <p><strong>title:</strong>弹框的标题，默认为标题“提示”.  例如：(title: "新的提示")</p>
+    <p><strong>content:</strong>弹框的内容.  例如：(content: "这是一个信息确认层")</p>
+    <p><strong>icon:</strong>设置的图标，0~6，不设置则默认为不显示图标。   例如：(icon: 6)</p>
+    <p><strong>btns:</strong> 自定义button按钮，content:按钮名称(必填)， classname：按钮类名(可不填)，type: 按钮样式，值有0~2(不填则默认)，close：点击此按钮是否关闭弹层，true和false两个值，默认为true，fn：点击按钮后执行函数。   例如下</p>
+
+    
+
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../mylayer.js"></script>
+<script type="text/javascript">
+$(function(){
+
+    mylayerFn.btns({
+        title: '提示',
+        content: '自定义button按钮',
+        icon: 6,
+        btns: [
+            {content:"我很帅", classname:'mylayer-btn111', type:1, close: true, fn:function(){
+                mylayerFn.msg('确实帅',{icon: 6,time: 2000});
+            }},
+            {content:"我不帅", classname:'sdfds', type:2, close: true,fn: function(){
+                mylayerFn.msg('0000',{});
+            }}
+        ]
+        /*yesFn : function(){
+            mylayerFn.msg('你点击了确定',{icon: 6,time: 2000});
+        },
+        cancelFn : function(){
+            mylayerFn.msg('你点击了关闭',{});
+        }*/
+    });
+
+
+    
+    
+    
+
+});
+
+
+   
+
+
+    
+</script>
+</body>
+</html>

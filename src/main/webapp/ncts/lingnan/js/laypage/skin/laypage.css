@@ -1,0 +1,67 @@
+/*---begin---laypage---begin---*/
+.laypage_main {
+  font-size: 0;
+  clear: both;
+  color: #828282; }
+  .laypage_main * {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: content-box;
+    font-size: 14px;
+    font-family: "\5FAE\8F6F\96C5\9ED1"; }
+  .laypage_main button, .laypage_main input, .laypage_main a {
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid #f4f4f4;
+    background-color: #f4f4f4;
+    border-radius: 2px; }
+  .laypage_main a {
+    margin-right: 10px;
+    padding: 0 12px;
+    background-color: #f4f4f4;
+    text-decoration: none;
+    color: #828282; }
+    .laypage_main a:hover {
+      background-color: #1e8be8;
+      border-color: #1e8be8;
+      color: #fff; }
+  .laypage_main input {
+    width: 40px;
+    margin: 0 5px;
+    padding: 0 0 0 5px; }
+  .laypage_main button {
+    margin-left: 5px;
+    padding: 0 12px;
+    color: #828282; }
+  .laypage_main span {
+    margin-right: 12px;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 12px; }
+  .laypage_main .laypage_curr {
+    border-radius: 2px;
+    background-color: #1e8be8;
+    border-color: #1e8be8;
+    color: #fff; }
+  .laypage_main .laypage_btn:hover {
+    background-color: #1e8be8;
+    border-color: #1e8be8;
+    color: #fff; }
+  .laypage_main .laypage_prev, .laypage_main .laypage_next {
+    padding: 0;
+    width: 34px;
+    background-image: url(laypage-pn.png);
+    background-repeat: no-repeat;
+    text-indent: -9999em; }
+  .laypage_main .laypage_prev {
+    background-position: 0 0; }
+    .laypage_main .laypage_prev:hover {
+      background-position: 0 -34px; }
+  .laypage_main .laypage_next {
+    background-position: -34px 0; }
+    .laypage_main .laypage_next:hover {
+      background-position: -34px -34px; }
+
+/*---end---laypage---end---*/
+
+/*# sourceMappingURL=laypage.css.map */

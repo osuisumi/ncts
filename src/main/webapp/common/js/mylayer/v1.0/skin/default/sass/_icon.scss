@@ -1,0 +1,40 @@
+@import "_base";
+
+/*
+
+=================
+sass icon style
+=================
+
+*/
+//icon
+%icon {
+    display: inline-block;
+    position: relative;
+    background: url(images/icon.png) no-repeat;
+}
+
+
+.mylayer-closeico {
+    @extend %icon;
+    width: 12px;
+    height: 12px;
+    background-position: 0 -41px;
+}
+
+.mylayer-ico {
+    @extend %icon;
+    position: absolute;
+    top: 16px;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    background-position: 0 0;
+
+}
+
+@for $i from 0 through 6 {
+    .mylayer-ico#{$i} {
+        background-position: (-30px * $i) 0;
+    }
+}

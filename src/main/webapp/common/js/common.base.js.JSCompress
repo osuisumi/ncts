@@ -1,0 +1,20 @@
+﻿<jscompress public="http://www.jscompress.cn/" command="import-combineset">
+<combinefile path="common.base.js">
+    <auto value="0" />
+    <sourcefile path=".\jquery.js" />
+    <sourcefile path=".\jquery-ui.js" />
+    <sourcefile path=".\jquery.cookie.js" />
+    <sourcefile path=".\jquery.timers.js" />
+    <sourcefile path=".\flowplayer\flowplayer.js" />
+    <sourcefile path=".\flowplayer\quality-selector\flowplayer.quality-selector.js" />
+    <sourcefile path=".\webuploader\webuploader.js" />
+    <sourcefile path=".\jquery.showUserInfor.js" />
+    <sourcefile path=".\mylayer\v1.0\mylayer.js" />
+    <sourcefile path=".\pdfobject\pdfobject.js" />
+    
+    <sourcefile path=".\validation\jquery.validate.js" />
+    <sourcefile path=".\validation\lib\jquery.metadata.js" />
+    <sourcefile path=".\validation\expand.js" />
+    <sourcefile path=".\validation\localization\messages_cn.js" />
+</combinefile>
+</jscompress>

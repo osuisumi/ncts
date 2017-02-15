@@ -1,0 +1,55 @@
+
+@import "../../../css/sass/_base";
+@import "../../../css/sass/_button";
+
+.errorBody {
+    background-color: #fff;
+    line-height: 22px;
+    font: {
+        family: $font-family;
+        size: 14px;
+    }
+}
+
+.g-error-auto {
+    margin: 0 auto;
+    width: 1000px;
+    background-color: #fff;
+}
+
+.g-error-content {
+    position: relative;
+    padding-top: 250px;
+    min-height: 350px;
+    .cont {
+        position: absolute;
+        top: 260px;
+        left: 528px;
+        color: #cfcfcf;
+    }
+    .btn-row {
+        margin-top: 12px;
+        a {
+            display: inline-block;
+            margin-right: 10px;
+            width: 90px;
+            height: 30px;
+            @include radius(3px);
+            line-height: 30px;
+            text-align: center;
+        }
+    }
+}
+
+.g-403 {
+    background: url(images/403.png) center 100px no-repeat;
+}
+.g-404 {
+    background: url(images/404.png) center 100px no-repeat;
+}
+.g-500 {
+    background: url(images/500.png) center 100px no-repeat;
+    .cont {
+        left: 562px;
+    }
+}

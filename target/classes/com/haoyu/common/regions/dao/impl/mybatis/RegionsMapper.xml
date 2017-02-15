@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haoyu.common.regions.dao.impl.mybatis.RegionsMapper">
+	<resultMap id="BaseResultMap" type="com.haoyu.common.regions.entity.Regions">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="REGIONS_CODE" jdbcType="VARCHAR" property="regionsCode" />
+		<result column="REGIONS_NAME" jdbcType="VARCHAR" property="regionsName" />
+		<result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />		
+		<result column="REGIONS_LEVEL" jdbcType="VARCHAR" property="regionsLevel" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, REGIONS_CODE, REGIONS_NAME, PARENT_CODE, REGIONS_LEVEL
+	</sql>
+	<select id="selectForMap" parameterType="com.haoyu.common.regions.entity.Regions" resultMap="BaseResultMap">
+		select
+		ID, REGIONS_CODE, REGIONS_NAME, PARENT_CODE, REGIONS_LEVEL
+		from VIEW_REGIONS VR
+		where VR.IS_DELETED = 'N'
+		<if test="regionsLevel != null and regionsLevel != ''">
+			and VR.REGIONS_LEVEL  = #{regionsLevel}
+		</if>
+	</select>
+</mapper>

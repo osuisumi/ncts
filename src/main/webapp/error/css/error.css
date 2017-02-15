@@ -1,0 +1,166 @@
+/*
+
+=================
+sass base style
+=================
+
+*/
+.u-main-btn, .u-inverse-btn {
+  font-family: "\5FAE\8F6F\96C5\9ED1"; }
+
+.f-cb {
+  *zoom: 1; }
+  .f-cb:before, .f-cb:after {
+    content: "";
+    display: table;
+    font: 0/0 a; }
+  .f-cb:after {
+    clear: both; }
+
+.fl {
+  display: inline-block;
+  *display: inline;
+  float: left; }
+
+.fr {
+  display: inline-block;
+  *display: inline;
+  float: right; }
+
+.btn {
+  display: inline-block;
+  padding: 0 16px;
+  height: 30px;
+  background-color: #f1f1f1;
+  border: 1px solid #d9d9d9;
+  cursor: pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 14px;
+  font-family: "Microsoft YaHei";
+  color: #5e5f61; }
+  .btn:hover {
+    background-color: #e5e5e5;
+    color: #5e5f61; }
+
+.u-main-btn {
+  display: inline-block;
+  background-color: #1e8be8;
+  border-color: #1e8be8;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -ms-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+  color: #fff; }
+  .u-main-btn:hover {
+    background-color: #3a99eb;
+    border-color: #3a99eb;
+    color: #fff; }
+  .u-main-btn:active {
+    background-color: #157bd2;
+    border-color: #157bd2;
+    color: #fff; }
+
+.u-minor-btn {
+  background-color: #f4833e;
+  border-color: #f4833e;
+  color: #fff; }
+  .u-minor-btn:hover {
+    background-color: #f7a26e;
+    border-color: #f7a26e;
+    color: #fff; }
+  .u-minor-btn:active {
+    background-color: #f1640e;
+    border-color: #f1640e; }
+
+.u-inverse-btn {
+  display: inline-block;
+  padding: 0 12px;
+  height: 30px;
+  background-color: #fff;
+  border: 1px solid #1e8be8;
+  transition: all .4s;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -ms-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+  line-height: 30px;
+  color: #1e8be8; }
+  .u-inverse-btn:hover {
+    background-color: #1e8be8;
+    color: #fff; }
+
+.u-right-btn {
+  background-color: #38ae03;
+  border-color: #38ae03;
+  color: #fff; }
+  .u-right-btn:hover {
+    background-color: #40c703;
+    border-color: #40c703;
+    color: #fff; }
+  .u-right-btn:active {
+    background-color: #309503;
+    border-color: #309503; }
+
+.u-default-btn {
+  background-color: #fff;
+  border-color: #e5e5e5;
+  color: #27292b; }
+  .u-default-btn:hover {
+    background-color: #3597ea;
+    border-color: #3597ea;
+    color: #fff; }
+  .u-default-btn:active {
+    background-color: #167ed7;
+    border-color: #167ed7; }
+
+.errorBody {
+  background-color: #fff;
+  line-height: 22px;
+  font-family: "Microsoft YaHei";
+  font-size: 14px; }
+
+.g-error-auto {
+  margin: 0 auto;
+  width: 1000px;
+  background-color: #fff; }
+
+.g-error-content {
+  position: relative;
+  padding-top: 250px;
+  min-height: 350px; }
+  .g-error-content .cont {
+    position: absolute;
+    top: 260px;
+    left: 528px;
+    color: #cfcfcf; }
+  .g-error-content .btn-row {
+    margin-top: 12px; }
+    .g-error-content .btn-row a {
+      display: inline-block;
+      margin-right: 10px;
+      width: 90px;
+      height: 30px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      line-height: 30px;
+      text-align: center; }
+
+.g-403 {
+  background: url(images/403.png) center 100px no-repeat; }
+
+.g-404 {
+  background: url(images/404.png) center 100px no-repeat; }
+
+.g-500 {
+  background: url(images/500.png) center 100px no-repeat; }
+  .g-500 .cont {
+    left: 562px; }
+
+/*# sourceMappingURL=error.css.map */

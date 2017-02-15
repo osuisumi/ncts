@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.2.xsd
+">
+	<bean id="shiroUserService" class="com.haoyu.ncts.shiro.service.impl.ShiroUserServiceImpl" >
+		<property name="shiroUserDao" ref="shiroUserDao" />
+	</bean>
+	<bean id="shiroUserDao" class="com.haoyu.ncts.shiro.dao.impl.mybatis.ShiroUserDao" parent="myBatisDao" />
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="authRealm" />
+		<property name="cacheManager" ref="shiroRedisManager" />
+	</bean>
+    <bean id="authRealm" class="com.haoyu.sip.auth.realm.DefaultCasAuthRealm">
+    	<!-- <property name="redisAppKey" value="${redis.app.key}" /> -->
+		<property name="casServerUrlPrefix" value="${privilege.cas.domain}" />
+		<property name="casService" value="${privilege.app.domain}/shiro-cas" />
+		<property name="authRealmHandlers">
+			<list>
+				<bean class="com.haoyu.ncts.shiro.handler.AuthRealmHandler" />
+			</list>
+		</property>
+	</bean>  
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="${privilege.cas.domain}?service=${privilege.app.domain}/shiro-cas" />
+		<property name="successUrl" value="/ncts/index" />
+		<property name="unauthorizedUrl" value="/error/403.jsp" />
+		<property name="filterChainDefinitions">
+			<value>
+				/close.html = anon
+				/shiro-cas = cas
+				/login = cas
+				/logout = logout
+				/nea/user/edit_user = anon
+				/**/study/unique_uid_*/** = authc, cu, course, unique_uid
+				/**/teach/unique_uid_*/** = authc, cu, course, unique_uid
+				/**/make/** = authc, cu, course 
+                /**/study/** = authc, cu, course 
+                /**/teach/** = authc, cu, course 
+				/** = authc, perms, cu
+			</value>
+		</property>
+		<!-- <property name="filterChainDefinitionMap" ref="chainDefinitionSectionMetaSource" /> -->
+		<property name="filters">
+			<map>
+				<entry key="cas" value-ref="casFilter" />
+				<entry key="logout" value-ref="logoutFilter" />
+				<entry key="cu" value-ref="currentUserFilter" />
+				<entry key="course" value-ref="courseFilter" />
+				<entry key="unique_uid" value-ref="uniqueUidFilter" />
+			</map>
+		</property>
+	</bean>
+	<bean id="uniqueUidFilter" class="com.haoyu.ncts.filter.UniqueUidFilter"/>
+    <bean id="currentUserFilter" class="com.haoyu.sip.auth.filter.CurrentUserFilter"/>
+    <bean id="courseFilter" class="com.haoyu.ncts.filter.CourseFilter"/>
+    <!-- nea 
+    <bean id="casFilter" class="com.haoyu.ncts.extend.nea.filter.AuthenticationCasFilter">
+    	<property name="failureUrl" value="/casFailure.jsp" />
+	</bean>-->
+    <!-- other -->
+    <bean id="casFilter" class="com.haoyu.ncts.shiro.filter.AuthenticationCasFilter">
+		<property name="failureUrl" value="/casFailure.jsp" />
+		<property name="shiroUserService" ref="shiroUserService" />
+	</bean> 
+	<bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+		<property name="redirectUrl" value="${privilege.cas.domain}/logout?service=${privilege.app.domain}/ncts/index" />
+	</bean>
+    
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>  
+      
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+    
+	<bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+		<property name="host" value="192.168.0.4" />
+		<property name="port" value="6379" />
+		<property name="expire" value="1800" />
+		<!-- optional properties: <property name="timeout" value="10000"/> <property name="password" value="123456"/> -->
+	</bean>
+
+	<!-- sessionManager -->
+	<!-- <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager"> <property name="sessionDAO" ref="redisSessionDAO" /> </bean> -->
+
+	<!-- cacheManager -->
+	<bean id="shiroRedisManager" class="org.crazycake.shiro.RedisCacheManager">
+		<property name="redisManager" ref="redisManager" />
+	</bean>
+</beans>

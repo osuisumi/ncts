@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haoyu.ncts.faq.dao.impl.mybatis.FaqQuestionBizMapper">
+	<resultMap id="BaseResultMap" type="com.haoyu.tip.faq.entity.FaqQuestion">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="RELATION_ID" property="relation.id" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="INTEGER" />
+		<result column="CREATOR" property="creator.id" jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="creator.realName" jdbcType="VARCHAR" />
+		<result column="AVATAR" property="creator.avatar" jdbcType="VARCHAR" />
+<!-- 		<collection property="faqAnswers" column="ID" select="selectFaqAnswers">
+			
+		</collection> -->
+	</resultMap>
+	<resultMap id="faqAnswerResultMap" type="com.haoyu.tip.faq.entity.FaqAnswer">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="QUESTION_ID" property="questionId" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="INTEGER" />
+		<result column="CREATOR" property="creator.id" jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="creator.realName" jdbcType="VARCHAR" />	
+		<result column="AVATAR" property="creator.avatar" jdbcType="VARCHAR" />	
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CONTENT,RELATION_ID, CREATE_TIME, CREATOR
+	</sql>
+	<select id="selectByParameter" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select FQ.ID, FQ.CONTENT, FQ.RELATION_ID, FQ.CREATE_TIME, FQ.CREATOR,
+		BUV.REAL_NAME, BUV.AVATAR
+		from FAQ_QUESTION FQ
+		join BASE_USER_VIEW BUV
+		on BUV.ID = FQ.CREATOR
+		where FQ.IS_DELETED = 'N'
+		<if test="relation != null and relation.id != null and relation.id != ''">
+			and FQ.RELATION_ID = #{relation.id}
+		</if>
+		<if test="relation != null and relation.type != null and relation.type != ''">
+			and FQ.RELATION_TYPE = #{relation.type}
+		</if>
+		<if test="content != null and content != ''">
+			and FQ.CONTENT like '%${content}%'
+		</if>
+		<if test="queryType != null and queryType != ''">
+			<if test="queryType == 'follow' and followCreatorId != null ">
+				and exists(select 1 from FOLLOW F where F.FOLLOWED_ID = FQ.ID and F.CREATOR = #{followCreatorId,jdbcType=VARCHAR})
+			</if>
+			<if test="queryType == 'creator' and creatorId != null ">
+				and FQ.CREATOR = #{creatorId,jdbcType=VARCHAR}
+			</if>
+		</if>
+	</select>
+	
+	<select id="selectFaqAnswers" parameterType="string" resultMap="faqAnswerResultMap">
+		select
+		ID, CONTENT,QUESTION_ID, CREATE_TIME, CREATOR
+		from FAQ_ANSWER
+		where QUESTION_ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="count" parameterType="java.util.Map" resultType="int">
+		select count(FQ.ID)
+		from FAQ_QUESTION FQ
+		left join FAQ_ANSWER FA
+		on FA.QUESTION_ID = FQ.ID
+		and FA.IS_DELETED = 'N'
+		join BASE_USER_VIEW BUV
+		on BUV.ID = FQ.CREATOR
+		where FQ.IS_DELETED = 'N'
+		<if test="relation != null and relation.id != null and relation.id != ''">
+			and FQ.RELATION_ID = #{relation.id}
+		</if>
+		<if test="relation != null and relation.type != null and relation.type != ''">
+			and FQ.RELATION_TYPE = #{relation.type}
+		</if>
+		<if test="content != null and content != ''">
+			and FQ.CONTENT like '%${content}%'
+		</if>
+		<if test="queryType != null and queryType != ''">
+			<if test="queryType == 'follow'">
+				and exists(select 1 from FOLLOW F where F.FOLLOWED_ID = FQ.ID)
+			</if>
+			<if test="queryType == 'creator' and creatorId != null ">
+				and FQ.CREATOR = #{creatorId,jdbcType=VARCHAR}
+			</if>
+		</if> 
+	</select>
+</mapper>

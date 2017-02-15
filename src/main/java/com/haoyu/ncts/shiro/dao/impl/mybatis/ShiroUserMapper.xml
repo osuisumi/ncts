@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haoyu.ncts.shiro.dao.impl.mybatis.ShiroUserMapper" >
+  <resultMap id="ShiroUserMap" type="com.haoyu.ncts.shiro.entity.ShiroUser" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+    <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+    <result column="AVATAR" property="avatar" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="AuthUserMap" type="com.haoyu.sip.auth.entity.AuthUser" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByUserName" resultMap="ShiroUserMap" parameterType="java.lang.String" >
+    SELECT ID,REAL_NAME,DEPT_ID,DEPT_NAME,ROLE_CODE,AVATAR, USER_NAME, PASSWORD
+    FROM BASE_USER_VIEW
+    WHERE (USER_NAME = #{userName,jdbcType=VARCHAR} or PAPERWORK_NO = #{userName,jdbcType=VARCHAR})
+  </select>
+  <select id="selectById" resultMap="ShiroUserMap" parameterType="java.lang.String" >
+    SELECT ID,REAL_NAME,DEPT_ID,DEPT_NAME,ROLE_CODE,AVATAR
+    FROM BASE_USER_VIEW
+    WHERE ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAuthUser" resultMap="AuthUserMap" parameterType="map" >
+    SELECT ID, REAL_NAME, (CASE WHEN USER_NAME IS NULL THEN PAPERWORK_NO ELSE USER_NAME END) USER_NAME
+    FROM BASE_USER_VIEW
+    <where>
+  		<if test="username != null and username != ''">
+  			and (USER_NAME = #{username,jdbcType=VARCHAR} or PAPERWORK_NO = #{username,jdbcType=VARCHAR})
+  		</if>
+  		<if test="id != null and id != ''">
+  			and ID = #{id, jdbcType=VARCHAR}
+  		</if>
+  		<if test="ids != null">
+  			and ID in 
+  			<foreach collection="ids" open="(" close=")" item="item" separator=",">
+  				#{item}
+  			</foreach>
+  		</if>
+  	</where> 
+  </select>
+</mapper>

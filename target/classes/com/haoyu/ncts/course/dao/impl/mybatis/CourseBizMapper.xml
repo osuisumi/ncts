@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.haoyu.ncts.course.dao.impl.mybatis.CourseBizMapper">
+	<resultMap id="BaseResultMap" type="com.haoyu.ncts.course.entity.Course">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result column="ORGANIZATION" property="organization" jdbcType="VARCHAR" />
+		<result column="CODE" property="code" jdbcType="VARCHAR" />
+		<result column="TERM_NO" property="termNo" jdbcType="VARCHAR" />
+		<result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+		<result column="SUMMARY" property="summary" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="IMAGE" property="image" jdbcType="VARCHAR" />
+		<result column="STUDY_HOURS" property="studyHours" jdbcType="DECIMAL" />
+		<result column="SUBJECT" property="subject" jdbcType="VARCHAR" />
+		<result column="STAGE" property="stage" jdbcType="VARCHAR" />
+		<result column="HOUR_LENGTH" property="hourLength" jdbcType="DECIMAL" />
+		<result column="STATE" property="state" jdbcType="VARCHAR" />
+		<result column="CREATOR" property="creator.id" jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="creator.realName" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap type="com.haoyu.ncts.utils.CSAIdObject" id="CSAIdObject">
+		<result column="COURSE_ID" property="cid" jdbcType="VARCHAR" />
+		<result column="SECTION_ID" property="sid" jdbcType="VARCHAR" />
+		<result column="CHAPTER_ID" property="scid" jdbcType="VARCHAR" />
+		<result column="ACTIVITY_ID" property="aid" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="CourseResultStat" type="com.haoyu.ncts.course.entity.CourseResultStat">
+		<result column="USER_ID" property="user.id" jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="user.realName" jdbcType="VARCHAR" />
+		<result column="DEPT_NAME" property="user.deptName" jdbcType="VARCHAR" />
+		<result column="PHONE" property="phone" jdbcType="VARCHAR" />
+		<result column="CODE" property="course.code" jdbcType="VARCHAR" />
+		<result column="TITLE" property="course.title" jdbcType="VARCHAR" />
+		<result column="SCORE" property="score" jdbcType="DECIMAL" />
+		<result column="STATE" property="state" jdbcType="VARCHAR" />
+		<result column="STUDY_HOURS" property="course.studyHours" jdbcType="DECIMAL" />
+		<result column="TYPE" property="course.type" jdbcType="VARCHAR" />
+		<result column="PAPERWORK_NO" property="paperworkNo" jdbcType="VARCHAR" />
+		<result column="TERM_ID" property="termId" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectCSAIdObjectByKey" resultMap="CSAIdObject" parameterType="com.haoyu.ncts.utils.CSAIdObject">
+		<if test="sid != null and sid != ''">
+			select C.ID COURSE_ID, S.ID SECTION_ID
+			from COURSE C
+			join SECTION S
+			on S.COURSE_ID = C.ID
+			and S.IS_DELETED = 'N'
+			and S.ID = #{sid}
+		</if>
+		<if test="scid != null and scid != ''">
+			select C.ID COURSE_ID, S.ID SECTION_ID, SC.ID CHAPTER_ID
+			from COURSE C
+			join SECTION S
+			on S.COURSE_ID = C.ID
+			and S.IS_DELETED = 'N'
+			join SECTION SC
+			on SC.PARENT_ID = S.ID
+			and SC.IS_DELETED = 'N'
+			and SC.ID = #{scid}
+		</if>
+		<if test="aid != null and aid != ''">
+			select C.ID COURSE_ID, S.ID SECTION_ID, SC.ID CHAPTER_ID, A.ID ACTIVITY_ID
+			from COURSE C
+			join SECTION S
+			on S.COURSE_ID = C.ID
+			and S.IS_DELETED = 'N'
+			join SECTION SC 
+			on SC.PARENT_ID = S.ID
+			and SC.IS_DELETED = 'N'
+			join ACTIVITY A
+			on A.RELATION_ID = SC.ID
+			and A.IS_DELETED = 'N'
+			and A.ID = #{aid} 
+		</if>
+		where C.IS_DELETED = 'N'
+		<if test="cid != null and cid != ''">
+			and C.ID = #{cid}
+		</if>
+	</select>
+	<select id="selectCourseResultForTempExport" parameterType="map" resultMap="CourseResultStat">
+		select BUV.ID USER_ID,BUV.REAL_NAME, BUV.PHONE, BUV.DEPT_NAME, BUV.PAPERWORK_NO,
+		C.CODE, C.TITLE, C.STUDY_HOURS, C.TYPE,
+		CR.SCORE, CR.STATE,
+		(select TERM_ID from TRAIN_TERM TT where TT.TRAIN_ID = #{trainId}) TERM_ID
+		from COURSE_RESULT CR 
+		join COURSE C
+		on CR.COURSE_ID = C.ID
+		join COURSE_RELATION CRE
+		on CRE.COURSE_ID = C.ID 
+		join TRAIN T
+		on T.ID = CRE.RELATION_ID
+		<if test="trainId != null and trainId != ''">
+			and T.ID = #{trainId}
+		</if>
+		and T.IS_DELETED = 'N'
+		join BASE_USER_VIEW BUV
+		on BUV.ID = CR.USER_ID
+		<if test="realName != null and realName != ''">
+			and BUV.REAL_NAME like '%${realName}%'
+		</if>
+		<if test="deptName != null and deptName != ''">
+			and BUV.DEPT_NAME like '%${deptName}%'
+		</if>
+		where CR.IS_DELETED = 'N'
+		<if test="state != null and state != ''">
+			and CR.STATE = #{state}
+		</if>
+	</select>	
+</mapper>

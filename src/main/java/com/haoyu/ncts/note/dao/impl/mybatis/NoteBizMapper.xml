@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haoyu.ncts.note.dao.impl.mybatis.NoteBizMapper">
+
+	<resultMap id="BaseResultMap" type="com.haoyu.sip.note.entity.Note">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="TITTLE" property="tittle" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="STATE" property="state" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="BIGINT" />
+		<result column="RELATION_ID" property="relation.id" jdbcType="VARCHAR" />
+		<result column="TYPE" property="relation.type" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="BIGINT" />
+		<result column="UPDATEDBY" property="updatedby.id" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="BaseSelectSql">
+		select
+			N.ID,
+			N.TITLE,
+			N.CONTENT,
+			N.STATE,
+			N.CREATOR,
+			N.CREATE_TIME,
+			N.UPDATEDBY,
+			N.UPDATE_TIME,
+			N.RELATION_ID
+		from
+			NOTE N
+	</sql>
+	
+	<sql id="BaseWhereSql">
+		where N.IS_DELETED = 'N'
+		<choose>
+			<when test="content != null and content != ''">
+				and N.CONTENT like '%${content}%' 
+			</when>
+			<otherwise>
+				<if test="relationIds != null ">
+					and N.RELATION_ID in 
+					<foreach collection="relationIds" open="(" close=")" item="item" separator=",">
+						#{item}
+					</foreach>
+				</if>
+			</otherwise>
+		</choose>
+		<if test="creator != null and creator != ''">
+			and N.CREATOR = #{creator}
+		</if>
+	</sql>
+	
+	<select id="select" parameterType="java.util.Map" resultMap="BaseResultMap">
+		<include refid="BaseSelectSql" />
+		<include refid="BaseWhereSql" />
+	</select>
+
+</mapper>

@@ -1,0 +1,16 @@
+﻿<jscompress public="http://www.jscompress.cn/" command="import-combineset">
+<combinefile path="ncts_study.js">
+    <auto value="0" />
+    <sourcefile path=".\common.js" />
+    <sourcefile path=".\sip-common.js" />
+    <sourcefile path=".\index.js" />
+    <sourcefile path=".\tag.js" />
+    <sourcefile path=".\courseLearning.js" />
+    <sourcefile path=".\activity-common.js" />
+    <sourcefile path=".\activity-file.js" />
+    <sourcefile path=".\evaluateStar.js" />
+    <sourcefile path=".\photoChange.js" />
+    <sourcefile path=".\photoAlbum.js" />
+    <sourcefile path=".\photo3d.js" />
+</combinefile>
+</jscompress>

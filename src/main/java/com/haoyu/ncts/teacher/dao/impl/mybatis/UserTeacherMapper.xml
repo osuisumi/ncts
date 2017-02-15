@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haoyu.ncts.teacher.dao.impl.mybatis.UserTeacherMapper">
+	<resultMap id="BaseResultMap" type="com.haoyu.ncts.teacher.entity.UserTeacher">
+	<id column="ID" property="id" jdbcType="VARCHAR" />
+	<result column="USER_ID" property="user.id" jdbcType="VARCHAR"/>
+	<result column="USER_REAL_NAME" property="user.realName" jdbcType="VARCHAR"/>
+	<result column="USER_DEPT_NAME" property="user.deptName" jdbcType="VARCHAR"/>
+	<result column="RELATION_ID" property="relation.id" jdbcType="VARCHAR"/>
+	<result column="TYPE" property="type" jdbcType="VARCHAR"/>
+	<result column="CREATOR" property="creator.id" jdbcType="VARCHAR"/>
+	<result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		T.ID,T.USER_ID,T.RELATION_ID,T.TYPE,T.CREATE_TIME,T.CREATOR
+		,
+		BUV.REAL_NAME USER_REAL_NAME,BUV.DEPT_NAME USER_DEPT_NAME
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select	<include refid="Base_Column_List" />
+		from USER_TEACHER T
+		join BASE_USER_VIEW BUV on BUV.ID = T.USER_ID
+		where T.IS_DELETED = 'N'
+		and T.ID = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByParameter" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from USER_TEACHER T
+		join BASE_USER_VIEW BUV on BUV.ID = T.USER_ID
+		where T.IS_DELETED = 'N'
+		<if test="realName != null and realName != ''">
+			and BUV.REAL_NAME like concat(concat('%',#{realName}),'%')
+		</if>
+	    <if test="province != null and province != ''">
+	    	and BUV.PROVINCE = #{province,jdbcType=VARCHAR}
+	    </if>
+	    <if test="city != null and city != ''">
+	    	and BUV.CITY = #{city,jdbcType=VARCHAR}
+	    </if>
+	    <if test="counties != null and counties != ''">
+	    	and BUV.COUNTIES = #{counties,jdbcType=VARCHAR}
+	    </if>
+   	    <if test="stage != null and stage != ''">
+	    	and BUV.STAGE = #{stage,jdbcType=VARCHAR}
+	    </if>
+	    <if test="subject != null and subject != ''">
+	    	and BUV.SUBJECT = #{subject,jdbcType=VARCHAR}
+	    </if>
+	</select>
+	
+	<insert id="insert" parameterType="com.haoyu.ncts.teacher.entity.UserTeacher">
+		insert into USER_TEACHER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="user!= null and user.id != null">USER_ID,</if>
+			<if test="relation != null and relation.relationId != null">RELATION_ID,</if>
+			<if test="type != null">TYPE,</if>
+			<if test="creator != null and creator.id != null">CREATOR,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="version != null">VERSION,</if>
+			<if test="isDeleted != null">IS_DELETED,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id,jdbcType=VARCHAR},</if>
+			<if test="user!= null and user.id != null">#{user.id,jdbcType=VARCHAR},</if>
+			<if test="relation != null and relation.relationId != null">#{relation.id,jdbcType=VARCHAR},</if>
+			<if test="type != null">#{type,jdbcType=VARCHAR},</if>
+			<if test="creator != null and creator.id != null">#{creator.id,jdbcType=VARCHAR},</if>
+			<if test="createTime != null">#{createTime,jdbcType=VARCHAR},</if>
+			<if test="version != null">#{version,jdbcType=DECIMAL},</if>
+			<if test="isDeleted != null">#{isDeleted,jdbcType=VARCHAR},</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.haoyu.ncts.teacher.entity.UserTeacher">
+	</update>
+	<update id="deleteByLogic" parameterType="map">
+		update USER_TEACHER
+		set IS_DELETED = 'Y',
+	   	<if test="entity!=null and entity.updatedby != null" >
+	      UPDATEDBY = #{entity.updatedby.id,jdbcType=VARCHAR},
+	    </if>
+	    <if test="entity!= null and entity.updateTime != null" >
+	      UPDATE_TIME = #{entity.updateTime,jdbcType=BIGINT},
+	    </if>
+	    VERSION=VERSION+1
+	  	where
+	  	 ID in
+	  	<foreach collection="ids" open="(" close=")" separator="," item="item">
+	  		#{item,jdbcType=VARCHAR}
+	  	</foreach>
+	</update>
+</mapper>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context.xsd 
+http://www.springframework.org/schema/mvc 
+http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<mvc:annotation-driven />
+	<!-- <mvc:message-converters> <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>text/html;charset=UTF-8</value> 
+		</list> </property> </bean> </mvc:message-converters> </mvc:annotation-driven> -->
+	<context:component-scan base-package="com.haoyu.**.controller" />
+	<context:component-scan base-package="com.haoyu.**.web" />
+	<!-- <context:component-scan base-package="com.haoyu.sip.tag.controller" 
+		/> -->
+	<!-- <mvc:resources mapping="/js/**" location="/js/" /> <mvc:resources mapping="/css/**" 
+		location="/css/" /> <mvc:resources mapping="/images/**" location="/images/" 
+		/> -->
+	<mvc:default-servlet-handler />
+	<!-- 引入属性文件 -->
+	<!-- <context:property-placeholder location="classpath:config.properties" 
+		/> -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"> 
+		<property name="messageConverters"> <list> 避免IE执行AJAX时,返回JSON出现下载文件 <bean 
+		id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>text/html;charset=UTF-8</value> 
+		</list> </property> </bean> </list> </property> 线程安全的访问session <property 
+		name="synchronizeOnSession" value="true"/> <property name="customArgumentResolvers"> 
+		<list> <bean class="com.haoyi.ipanther.core.spring.mvc.method.annotation.RequestJsonParamMethodArgumentResolver"/> 
+		<bean class="com.haoyi.ipanther.core.spring.mvc.method.annotation.FormModelMethodArgumentResolver"/> 
+		</list> </property> </bean> <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/views/" p:suffix=".jsp" p:order="1"/>
+	 <!-- FreeMarker视图解析 -->
+    <bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="true"/>
+    	<property name="contentType" value="text/html;charset=UTF-8"></property>
+        <!-- <property name="prefix" value="/WEB-INF/templates/"/> -->
+        <property name="suffix" value=".ftl"/>
+        <property name="order" value="0"/>  
+        <property name="requestContextAttribute" value="request"/>
+        <property name="attributesMap" ref="freemarkerStaticModels"/>
+    </bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:defaultEncoding="UTF-8" p:maxUploadSize="524288000" p:uploadTempDir="upload/temp/" />
+	<bean id="freemarkerConfigurer"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/templates" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+<!-- 				<prop key="locale">zh_CN</prop> -->
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="number_format">#.##</prop>
+	<!-- 			<prop key="auto_import">/ftl/common/macros.ftl as html</prop>
+				<prop key="tag_syntax">auto_detect</prop> -->
+			</props>
+		</property>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="ctx" value=""/>
+				<!-- act -->
+				<entry key="activityDirective">
+					<bean class="com.haoyu.aip.activity.template.ActivityDataDirective" />
+				</entry>
+				<entry key="activityResultsDirective">
+					<bean class="com.haoyu.aip.activity.template.ActivityResultsDataDirective" />
+				</entry>
+				<entry key="activitiesDirective">
+					<bean class="com.haoyu.aip.activity.template.ActivitiesDataDirective" />
+				</entry>
+				
+				<!-- discussion -->
+				<entry key="discussion">
+					<bean class="com.haoyu.aip.discussion.template.DiscussionDataDirective" />
+				</entry>
+				<entry key="courseStudyDiscussion">
+					<bean class="com.haoyu.aip.discussion.template.DiscussionsDataDirective" />
+				</entry>
+				
+				<!-- video -->
+				<entry key="video">
+					<bean class="com.haoyu.aip.video.template.VideoDataDirective" />
+				</entry>
+				<entry key="videoRecordsDirective">
+					<bean class="com.haoyu.aip.video.template.VideoRecordsDataDirective" />
+				</entry>
+				<entry key="videoRecordCategoriesDirective">
+					<bean class="com.haoyu.aip.video.template.VideoRecordCategoriesDataDirective" />
+				</entry>
+				<entry key="videoRecordGradesDirective">
+					<bean class="com.haoyu.aip.video.template.VideoRecordGradesDataDirective" />
+				</entry>
+				
+				<!-- text -->
+				<entry key="textInfo">
+					<bean class="com.haoyu.aip.text.template.TextInfoDataDirective" />
+				</entry>
+				<entry key="textInfoFilesDirective">
+					<bean class="com.haoyu.aip.text.template.TextInfoFilesDirective" />
+				</entry>
+				<entry key="textInfoFileDirective">
+					<bean class="com.haoyu.aip.text.template.TextInfoFileDirective" />
+				</entry>
+				
+				<!-- assignment -->
+				<entry key="assignment">
+					<bean class="com.haoyu.aip.assignment.template.AssignmentDataDirective" />
+				</entry>
+				<entry key="assignmentsDirective">
+					<bean class="com.haoyu.aip.assignment.template.AssignmentsDataDirective" />
+				</entry>
+				<entry key="assignmentRelation">
+					<bean class="com.haoyu.aip.assignment.template.AssignmentRelationDataDirective" />
+				</entry>
+				<entry key="assignmentUsersDirective">
+					<bean class="com.haoyu.aip.assignment.template.AssignmentUsersDataDirective" />
+				</entry>
+				<entry key="assignmentMarkDirective">
+					<bean class="com.haoyu.aip.assignment.template.AssignmentMarkDataDirective" />
+				</entry>
+				<entry key="assignmentMarks">
+					<bean class="com.haoyu.aip.assignment.template.AssignmentMarksDataDirective" />
+				</entry>
+				<entry key="assignmentUserNumDirective">
+					<bean class="com.haoyu.aip.assignment.template.AssignmentUserNumDirective" />
+				</entry>
+				
+				<!-- survey -->
+				<entry key="survey">
+					<bean class="com.haoyu.aip.survey.template.SurveyDataDirective" />
+				</entry>
+				
+				<!-- resource -->
+				<entry key="resourcesDataDirective">
+					<bean class="com.haoyu.tip.resource.template.ResourcesDataDirective" />
+				</entry>
+				
+				<!-- message -->
+				<entry key="messagesDirective">
+					<bean class="com.haoyu.sip.message.template.MessagesDataDirective" />
+				</entry>
+				<entry key="messageDirective">
+					<bean class="com.haoyu.sip.message.template.MessageDataDirective" />
+				</entry>
+				
+				<!-- user -->
+				<entry key="userInfoDirective">
+					<bean class="com.haoyu.sip.user.template.UserInfoDirective" />
+				</entry>
+			
+				<!-- ncts -->
+				<entry key="courseNum">
+					<bean class="com.haoyu.ncts.template.CourseNumDataDirective" />
+				</entry>
+				<entry key="coursesDirective">
+					<bean class="com.haoyu.ncts.template.CoursesDirective" />
+				</entry>
+				<entry key="leadCourseContent">
+					<bean class="com.haoyu.ncts.template.LeadCourseContentDataDirective" />
+				</entry>
+				<entry key="micCourseContent">
+					<bean class="com.haoyu.ncts.template.MicCourseContentDataDirective" />
+				</entry>
+				<entry key="courseConfig">
+					<bean class="com.haoyu.ncts.template.CourseConfigDataDirective" />
+				</entry>
+				<entry key="discussionUser">
+					<bean class="com.haoyu.ncts.template.DiscussionUserDataDirective" />
+				</entry>
+				<entry key="videoUser">
+					<bean class="com.haoyu.ncts.template.VideoUserDataDirective" />
+				</entry>
+				<entry key="textInfoUser">
+					<bean class="com.haoyu.ncts.template.TextInfoUserDataDirective" />
+				</entry>
+				<entry key="assignmentUserDirective">
+					<bean class="com.haoyu.ncts.template.AssignmentUserDataDirective" />
+				</entry>
+				<entry key="evaluateRelation">
+					<bean class="com.haoyu.ncts.template.EvaluateRelationDataDirective" />
+				</entry>
+				<entry key="evaluateSubmissionDirective">
+					<bean class="com.haoyu.ncts.template.EvaluateSubmissionDataDirective" />
+				</entry>
+				<entry key="evaluateItemResultDirective">
+					<bean class="com.haoyu.ncts.template.EvaluateItemResultDataDirective" />
+				</entry>
+				<entry key="faqs">
+					<bean class="com.haoyu.ncts.template.FaqListDataDirective"/>
+				</entry>
+				<entry key="surveyUser">
+					<bean class="com.haoyu.ncts.template.SurveyUserDataDirective" />
+				</entry>
+				<entry key="surveySubmissions">
+					<bean class="com.haoyu.ncts.template.SurveySubmissionsDataDirective" />
+				</entry>
+				<entry key="notes">
+					<bean class="com.haoyu.ncts.template.NoteDataDirective" />
+				</entry>				
+				<entry key="resourcesData">
+					<bean class="com.haoyu.ncts.template.ResourceDataDirective" />
+				</entry>
+				<entry key="resourceRelationsData">
+					<bean class="com.haoyu.ncts.template.ResourceRelationsDataDirective" />
+				</entry>
+				<entry key="testDirective">
+					<bean class="com.haoyu.ncts.qti.template.TestDataDirective" />
+				</entry>
+				<entry key="testPackageDirective">
+					<bean class="com.haoyu.ncts.qti.template.TestPackageDataDirective" />
+				</entry>
+				<entry key="testDeliveryUserDirective">
+					<bean class="com.haoyu.ncts.qti.template.TestDeliveryUserDataDirective" />
+				</entry>
+				<entry key="courseRegisterStateDirective">
+					<bean class="com.haoyu.ncts.template.CourseRegisterStateDataDirective" />
+				</entry>
+				<entry key="courseRegistersDataDirective">
+					<bean class="com.haoyu.ncts.template.CourseRegisterDataDirective" />
+				</entry>
+				<entry key="courseRelationsDirective">
+					<bean class="com.haoyu.ncts.template.CourseRelationsDirective" />
+				</entry>
+				<entry key="courseResultSettingsDirective">
+					<bean class="com.haoyu.ncts.template.CourseResultSettingsDataDirective" />
+				</entry>
+				<entry key="userInfoFromBaseUserViewDirective">
+					<bean class="com.haoyu.ncts.template.UserInfoFromBaseUserViewDataDirective" />
+				</entry>
+				<entry key="courseDirective">
+					<bean class="com.haoyu.ncts.template.CourseDirective" />
+				</entry>
+				<entry key="courseRegisterStatDirective">
+					<bean class="com.haoyu.ncts.template.CourseRegisterStatDirective" />
+				</entry>
+				<entry key="courseStatsDirective">
+					<bean class="com.haoyu.ncts.template.CourseStatsDirective" />
+				</entry>
+				
+				<!-- lego -->
+				<entry key="userRegionsDirective">
+					<bean class="com.haoyu.ncts.extend.lego.user.template.UserRegionsDirective" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="freemarkerStaticModelsProps"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:freemarkerstatic.properties" />
+	</bean>
+
+	<bean id="freemarkerStaticModels" class="com.haoyu.sip.core.freemarker.FreemarkerStaticModels"
+		factory-method="getInstance">
+		<property name="staticModels" ref="freemarkerStaticModelsProps" />
+	</bean>
+</beans>

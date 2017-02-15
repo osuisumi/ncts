@@ -1,0 +1,52 @@
+@import "_theme";
+
+//button
+.mylayer-btn {
+    display: inline-block;
+    padding: 0 16px;
+    height: 30px;
+    background-color: #f1f1f1;
+    border: 1px solid #e1e1e1;
+    cursor: pointer;
+    outline: none;
+    border-radius: 3px;
+    line-height: 30px;
+    text-align: center;
+    font: {
+        size: 14px;
+        family: $font-family;
+    }
+    color: nth($font-color,1);
+    &:hover {
+        background-color: #e5e5e5;
+        color: nth($font-color,1);
+    }
+    &.type1 {
+        @extend %mylayer-main-btn;
+    }
+    &.type2 {
+        @extend %mylayer-inverse-btn;
+    }
+}
+
+
+.mylayer-main-btn, %mylayer-main-btn {
+    background-color: nth($theme-color,1);
+    border-color: nth($theme-color,1);
+    color: #fff;
+    &:hover {
+        background-color: lighten(nth($theme-color,1),10%);
+        border-color: lighten(nth($theme-color,1),10%);
+        color: #fff;
+    }
+}
+.mylayer-inverse-btn, %mylayer-inverse-btn {
+    background-color: #fff;
+    border-color: nth($theme-color,1);
+    color: nth($theme-color,1);
+    &:hover {
+        background-color: nth($theme-color,1);
+        border-color: nth($theme-color,1);
+        color: #fff;
+    }
+}

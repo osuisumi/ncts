@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
+  "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<!-- <settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="aggressiveLazyLoading" value="true" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="10" />
+	</settings>	
+	<plugins>
+        <plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+            <property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect"/>
+        </plugin>
+        <plugin interceptor="com.haoyu.sip.core.jdbc.MybatisSqlMonitorInterceptor"/>
+    </plugins> 
+     -->
+     <properties>
+		<property name="dialect" value="MYSQL5" />
+	</properties>
+	<typeHandlers>
+		<typeHandler javaType="oracle.sql.CLOB" handler="org.apache.ibatis.type.ClobTypeHandler" />
+		<typeHandler javaType="oracle.sql.BLOB" handler="org.apache.ibatis.type.BlobTypeHandler" />
+	</typeHandlers>
+	<plugins>
+		<plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+			<property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.OracleDialect" />
+		</plugin>
+	</plugins>
+</configuration> 
